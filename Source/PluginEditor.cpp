@@ -15,7 +15,7 @@
 DistoverdriveAudioProcessorEditor::DistoverdriveAudioProcessorEditor (DistoverdriveAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
-    std::array<std::string, 2> controlNames = { "boost", "drive" };
+    std::array<std::string, 3> controlNames = { "input", "drive", "output" };
     for (auto name : controlNames)
     {
         auto* slider = new Slider(name);

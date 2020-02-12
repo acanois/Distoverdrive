@@ -62,9 +62,10 @@ public:
 
 private:
     //==============================================================================
-    Atomic<float> mBoost;
-    Atomic<float> mDrive;
-    Atomic<float> mTone;
+    Atomic<float> mInput { 1.f };
+    Atomic<float> mDrive { 1.f };
+    Atomic<float> mOutput { 1.f };
+    Atomic<float> mDistCutoff { 3000.f };
     
     AudioProcessorValueTreeState mValueTree;
     

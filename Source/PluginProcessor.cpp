@@ -24,12 +24,14 @@ DistoverdriveAudioProcessor::DistoverdriveAudioProcessor()
                        ),
 #endif
 mValueTree(*this, nullptr, "ValueTree", {
-    std::make_unique<AudioParameterFloat>("boost", "Boost", NormalisableRange<float> (1.f, 2.f, 0.001f), mBoost.get()),
-    std::make_unique<AudioParameterFloat>("drive", "Drive", NormalisableRange<float> (10.f, 3000.f, 0.001f), mDrive.get())
+    std::make_unique<AudioParameterFloat>("input", "input", NormalisableRange<float> (1.f, 2.f, 0.001f), mInput.get()),
+    std::make_unique<AudioParameterFloat>("drive", "Drive", NormalisableRange<float> (0.f, 3000.f, 0.001f), mDrive.get()),
+    std::make_unique<AudioParameterFloat>("output", "output", NormalisableRange<float> (0.f, 1.f, 0.001f), mOutput.get())
 })
 {
-    mValueTree.addParameterListener("boost", this);
+    mValueTree.addParameterListener("input", this);
     mValueTree.addParameterListener("drive", this);
+    mValueTree.addParameterListener("output", this);
 }
 
 DistoverdriveAudioProcessor::~DistoverdriveAudioProcessor()
@@ -37,10 +39,13 @@ DistoverdriveAudioProcessor::~DistoverdriveAudioProcessor()
 }
 
 //==============================================================================
-const String DistoverdriveAudioProcessor::getName() const
-{
-    return JucePlugin_Name;
-}
+const  String DistoverdriveAudioProcessor::getName() const            { return JucePlugin_Name; }
+double DistoverdriveAudioProcessor::getTailLengthSeconds() const      { return 0.0; }
+int    DistoverdriveAudioProcessor::getNumPrograms()                  { return 1; } // Should return at least 1
+int    DistoverdriveAudioProcessor::getCurrentProgram()               { return 0; }
+void   DistoverdriveAudioProcessor::setCurrentProgram (int index)     {}
+const  String DistoverdriveAudioProcessor::getProgramName (int index) { return {}; }
+void   DistoverdriveAudioProcessor::changeProgramName (int index, const String& newName) {}
 
 bool DistoverdriveAudioProcessor::acceptsMidi() const
 {
@@ -69,34 +74,7 @@ bool DistoverdriveAudioProcessor::isMidiEffect() const
    #endif
 }
 
-double DistoverdriveAudioProcessor::getTailLengthSeconds() const
-{
-    return 0.0;
-}
 
-int DistoverdriveAudioProcessor::getNumPrograms()
-{
-    return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
-                // so this should be at least 1, even if you're not really implementing programs.
-}
-
-int DistoverdriveAudioProcessor::getCurrentProgram()
-{
-    return 0;
-}
-
-void DistoverdriveAudioProcessor::setCurrentProgram (int index)
-{
-}
-
-const String DistoverdriveAudioProcessor::getProgramName (int index)
-{
-    return {};
-}
-
-void DistoverdriveAudioProcessor::changeProgramName (int index, const String& newName)
-{
-}
 
 //==============================================================================
 void DistoverdriveAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
@@ -107,8 +85,6 @@ void DistoverdriveAudioProcessor::prepareToPlay (double sampleRate, int samplesP
 
 void DistoverdriveAudioProcessor::releaseResources()
 {
-    // When playback stops, you can use this as an opportunity to free up any
-    // spare memory, etc.
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -141,7 +117,6 @@ void DistoverdriveAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
     
-    
     // Clear the buffer
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
@@ -151,8 +126,8 @@ void DistoverdriveAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
         auto* writePtr = buffer.getWritePointer(channel);
         for (auto sample = 0; sample < buffer.getNumSamples(); ++sample)
         {
-            *writePtr *= (mBoost.get() * mDrive.get());
-            *writePtr = ((2.f / float_Pi) * std::atan(*writePtr));
+            *writePtr *= (mInput.get() * mDrive.get());
+            *writePtr = ((2.f / float_Pi) * std::atan(*writePtr)) * mOutput.get();
             
             writePtr++;
         }
@@ -161,8 +136,9 @@ void DistoverdriveAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
 
 void DistoverdriveAudioProcessor::parameterChanged (const String& parameterID, float newValue)
 {
-    if (parameterID == "boost") mBoost.set (newValue);
-    if (parameterID == "drive") mDrive.set (newValue);
+    if (parameterID == "input")  mInput.set  (newValue);
+    if (parameterID == "drive")  mDrive.set  (newValue);
+    if (parameterID == "output") mOutput.set (newValue);
 }
 
 //==============================================================================
