@@ -18,14 +18,14 @@
 //==============================================================================
 /**
 */
-class DistoverdriveAudioProcessorEditor  : public AudioProcessorEditor
+class DistoverdriveAudioProcessorEditor : public AudioProcessorEditor
 {
 public:
-    DistoverdriveAudioProcessorEditor (DistoverdriveAudioProcessor&);
+    DistoverdriveAudioProcessorEditor(DistoverdriveAudioProcessor&);
     ~DistoverdriveAudioProcessorEditor();
 
     //==============================================================================
-    void paint (Graphics&) override;
+    void paint(Graphics&) override;
     void resized() override;
 
 private:

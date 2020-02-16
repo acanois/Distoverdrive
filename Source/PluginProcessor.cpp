@@ -24,9 +24,9 @@ DistoverdriveAudioProcessor::DistoverdriveAudioProcessor()
                        ),
 #endif
 mValueTree(*this, nullptr, "ValueTree", {
-    std::make_unique<AudioParameterFloat>("input", "input", NormalisableRange<float> (1.f, 2.f, 0.001f), mInput.get()),
-    std::make_unique<AudioParameterFloat>("drive", "Drive", NormalisableRange<float> (0.f, 3000.f, 0.001f), mDrive.get()),
-    std::make_unique<AudioParameterFloat>("output", "output", NormalisableRange<float> (0.f, 1.f, 0.001f), mOutput.get())
+    std::make_unique<AudioParameterFloat>("input", "Input", NormalisableRange<float>   (1.f, 5.f, 0.001f), mInput.get()),
+    std::make_unique<AudioParameterFloat>("drive", "Drive", NormalisableRange<float>   (0.f, 3000.f, 0.001f), mDrive.get()),
+    std::make_unique<AudioParameterFloat>("output", "Output", NormalisableRange<float> (0.f, 1.f, 0.001f), mOutput.get())
 })
 {
     mValueTree.addParameterListener("input", this);
@@ -121,11 +121,9 @@ void DistoverdriveAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    for (auto channel = 0; channel < getTotalNumOutputChannels(); ++channel)
-    {
+    for (auto channel = 0; channel < getTotalNumOutputChannels(); ++channel) {
         auto* writePtr = buffer.getWritePointer(channel);
-        for (auto sample = 0; sample < buffer.getNumSamples(); ++sample)
-        {
+        for (auto sample = 0; sample < buffer.getNumSamples(); ++sample) {
             *writePtr *= (mInput.get() * mDrive.get());
             *writePtr = ((2.f / float_Pi) * std::atan(*writePtr)) * mOutput.get();
             
@@ -155,15 +153,17 @@ AudioProcessorEditor* DistoverdriveAudioProcessor::createEditor()
 //==============================================================================
 void DistoverdriveAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+    auto state = mValueTree.copyState();
+    std::unique_ptr<XmlElement> xml (state.createXml());
+    copyXmlToBinary(*xml, destData);
 }
 
 void DistoverdriveAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+    std::unique_ptr<XmlElement> xmlState (getXmlFromBinary (data, sizeInBytes));
+    if (xmlState.get() != nullptr)
+        if (xmlState->hasTagName (mValueTree.state.getType()))
+            mValueTree.replaceState (ValueTree::fromXml (*xmlState));
 }
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
