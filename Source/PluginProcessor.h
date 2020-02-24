@@ -12,6 +12,8 @@
 
 #include <JuceHeader.h>
 
+#include "Distortion.h"
+
 //==============================================================================
 /**
 */
@@ -63,11 +65,13 @@ public:
 private:
     //==============================================================================
     Atomic<float> mInput { 1.f };
-    Atomic<float> mDrive { 1.f };
-    Atomic<float> mOutput { 1.f };
+    Atomic<float> mDrive { 35.f };
+    Atomic<float> mOutput { 0.1f };
     Atomic<float> mDistCutoff { 3000.f };
     
     AudioProcessorValueTreeState mValueTree;
+    
+    std::unique_ptr<Distortion> mpDist;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DistoverdriveAudioProcessor)
 };

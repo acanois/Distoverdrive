@@ -4,6 +4,7 @@
               companyName="Saturn Valley" pluginFormats="buildAU">
   <MAINGROUP id="GXm0tK" name="Distoverdrive">
     <GROUP id="{6F1D8624-13FE-C9EE-73C3-3FEAC59ADAA8}" name="Source">
+      <FILE id="iJxgMi" name="Distortion.h" compile="0" resource="0" file="Source/Distortion.h"/>
       <FILE id="Ru4h9Z" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="Z9hoFo" name="PluginProcessor.h" compile="0" resource="0"
