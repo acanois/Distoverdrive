@@ -4,6 +4,11 @@
               companyName="Saturn Valley" pluginFormats="buildAU">
   <MAINGROUP id="GXm0tK" name="Distoverdrive">
     <GROUP id="{6F1D8624-13FE-C9EE-73C3-3FEAC59ADAA8}" name="Source">
+      <GROUP id="{F7459BE9-E0FF-2DDB-3560-52175C2C7B54}" name="Resources">
+        <FILE id="s5OabG" name="cassette_recorder.wav" compile="0" resource="1"
+              file="Source/Resources/cassette_recorder.wav"/>
+        <FILE id="uwWTJn" name="guitar_amp.wav" compile="0" resource="1" file="Source/Resources/guitar_amp.wav"/>
+      </GROUP>
       <FILE id="iJxgMi" name="Distortion.h" compile="0" resource="0" file="Source/Distortion.h"/>
       <FILE id="Ru4h9Z" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
@@ -35,6 +40,7 @@
         <MODULEPATH id="juce_gui_basics" path="../../cloned_repos/JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../cloned_repos/JUCE/modules"/>
         <MODULEPATH id="juce_opengl" path="../../cloned_repos/JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../cloned_repos/JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
@@ -49,6 +55,7 @@
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>

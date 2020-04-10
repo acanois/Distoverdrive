@@ -64,10 +64,8 @@ public:
 
 private:
     //==============================================================================
-    Atomic<float> mInput { 1.f };
-    Atomic<float> mDrive { 35.f };
-    Atomic<float> mOutput { 0.1f };
-    Atomic<float> mDistCutoff { 3000.f };
+    Atomic<float> mInput  { 1.f };
+    Atomic<float> mOutput { 0.5f };
     
     AudioProcessorValueTreeState mValueTree;
     

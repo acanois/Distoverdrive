@@ -24,14 +24,12 @@ DistoverdriveAudioProcessor::DistoverdriveAudioProcessor()
                        ),
 #endif
 mValueTree(*this, nullptr, "ValueTree", {
-    std::make_unique<AudioParameterFloat>("input", "Input", NormalisableRange<float>   (1.f, 5.f, 0.001f), mInput.get()),
-    std::make_unique<AudioParameterFloat>("drive", "Drive", NormalisableRange<float>   (0.f, 3000.f, 0.001f), mDrive.get()),
-    std::make_unique<AudioParameterFloat>("output", "Output", NormalisableRange<float> (0.f, 1.f, 0.001f), mOutput.get())
+    std::make_unique<AudioParameterFloat> ("input", "Input", NormalisableRange<float>   (0.f, 0.99f, 0.001f), mInput.get()),
+    std::make_unique<AudioParameterFloat> ("output", "Output", NormalisableRange<float> (0.f, 1.f, 0.001f), mOutput.get())
 }),
-mpDist(std::make_unique<Distortion>(mInput.get(), mDrive.get(), mOutput.get()))
+mpDist(std::make_unique<Distortion>(mInput.get(), mOutput.get()))
 {
     mValueTree.addParameterListener("input", this);
-    mValueTree.addParameterListener("drive", this);
     mValueTree.addParameterListener("output", this);
 }
 
@@ -120,15 +118,14 @@ void DistoverdriveAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
     
-    mpDist->setParameters(mInput.get(), mDrive.get(), mOutput.get());
+    mpDist->setParameters (mInput.get(), mOutput.get());
     for (auto channel = 0; channel < getTotalNumOutputChannels(); ++channel)
-        mpDist->processBuffer(buffer, totalNumOutputChannels, channel);
+        mpDist->processBuffer (buffer, totalNumOutputChannels, channel);
 }
 
 void DistoverdriveAudioProcessor::parameterChanged (const String& parameterID, float newValue)
 {
     if (parameterID == "input")  mInput.set  (newValue);
-    if (parameterID == "drive")  mDrive.set  (newValue);
     if (parameterID == "output") mOutput.set (newValue);
 }
 

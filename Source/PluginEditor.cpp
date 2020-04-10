@@ -15,8 +15,10 @@
 DistoverdriveAudioProcessorEditor::DistoverdriveAudioProcessorEditor (DistoverdriveAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
-    std::array<std::string, 3> controlNames = { "input", "drive", "output" };
-    for (auto name : controlNames) {
+    std::array<std::string, 2> controlNames = { "input", "output" };
+    
+    for (auto name : controlNames)
+    {
         auto* slider = new Slider(name);
         auto* sliderAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.getValueTreeState(), name, *slider);
         slider->setSliderStyle(Slider::RotaryVerticalDrag);
