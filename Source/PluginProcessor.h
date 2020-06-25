@@ -60,11 +60,14 @@ public:
     
     //==============================================================================
     void parameterChanged (const String& parameterID, float newValue) override;
+    
+    //==============================================================================
+    DistoverdriveAudioProcessor& getProcessorRef() { return *this; }
     AudioProcessorValueTreeState& getValueTreeState() { return mValueTree; }
 
 private:
     //==============================================================================
-    Atomic<float> mInput  { 1.f };
+    Atomic<float> mInput  { 0.f };
     Atomic<float> mOutput { 0.5f };
     
     AudioProcessorValueTreeState mValueTree;

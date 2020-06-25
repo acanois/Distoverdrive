@@ -15,6 +15,8 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 
+#include "MainPanel.h"
+
 //==============================================================================
 /**
 */
@@ -36,6 +38,8 @@ private:
     Rectangle<int> sliderBounds;
     
     DistoverdriveAudioProcessor& processor;
+    
+    std::unique_ptr<MainPanel> mMainPanel;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DistoverdriveAudioProcessorEditor)
 };

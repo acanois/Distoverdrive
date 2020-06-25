@@ -3,13 +3,24 @@
 <JUCERPROJECT id="ma49bQ" name="Distoverdrive" projectType="audioplug" jucerVersion="5.4.7"
               companyName="Saturn Valley" pluginFormats="buildAU">
   <MAINGROUP id="GXm0tK" name="Distoverdrive">
-    <GROUP id="{6F1D8624-13FE-C9EE-73C3-3FEAC59ADAA8}" name="Source">
-      <GROUP id="{F7459BE9-E0FF-2DDB-3560-52175C2C7B54}" name="Resources">
-        <FILE id="s5OabG" name="cassette_recorder.wav" compile="0" resource="1"
-              file="Source/Resources/cassette_recorder.wav"/>
-        <FILE id="uwWTJn" name="guitar_amp.wav" compile="0" resource="1" file="Source/Resources/guitar_amp.wav"/>
-      </GROUP>
+    <GROUP id="{83AB5109-6324-C61D-DE11-D17D57F95742}" name="GuiElements">
+      <FILE id="OOm1W0" name="DistOverSlider.cpp" compile="1" resource="0"
+            file="Source/DistOverSlider.cpp"/>
+      <FILE id="KHe3Be" name="DistOverSlider.h" compile="0" resource="0"
+            file="Source/DistOverSlider.h"/>
+      <FILE id="mM0DPa" name="MainPanel.cpp" compile="1" resource="0" file="Source/MainPanel.cpp"/>
+      <FILE id="qet2NN" name="MainPanel.h" compile="0" resource="0" file="Source/MainPanel.h"/>
+    </GROUP>
+    <GROUP id="{18477216-7036-5D3D-268C-91009A765CC1}" name="DSP">
+      <FILE id="hjUq00" name="Distortion.cpp" compile="1" resource="0" file="Source/Distortion.cpp"/>
       <FILE id="iJxgMi" name="Distortion.h" compile="0" resource="0" file="Source/Distortion.h"/>
+    </GROUP>
+    <GROUP id="{F7459BE9-E0FF-2DDB-3560-52175C2C7B54}" name="Resources">
+      <FILE id="s5OabG" name="cassette_recorder.wav" compile="0" resource="1"
+            file="Source/Resources/cassette_recorder.wav"/>
+      <FILE id="uwWTJn" name="guitar_amp.wav" compile="0" resource="1" file="Source/Resources/guitar_amp.wav"/>
+    </GROUP>
+    <GROUP id="{6F1D8624-13FE-C9EE-73C3-3FEAC59ADAA8}" name="Source">
       <FILE id="Ru4h9Z" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="Z9hoFo" name="PluginProcessor.h" compile="0" resource="0"
