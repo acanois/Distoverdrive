@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="ma49bQ" name="Distoverdrive" projectType="audioplug" jucerVersion="5.4.7"
-              companyName="Saturn Valley" pluginFormats="buildAU">
+<JUCERPROJECT id="ma49bQ" name="Distoverdrive" projectType="audioplug" companyName="Saturn Valley"
+              pluginFormats="buildAU" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="GXm0tK" name="Distoverdrive">
     <GROUP id="{83AB5109-6324-C61D-DE11-D17D57F95742}" name="GuiElements">
       <FILE id="OOm1W0" name="DistOverSlider.cpp" compile="1" resource="0"

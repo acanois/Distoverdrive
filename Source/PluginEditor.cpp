@@ -45,7 +45,6 @@ DistoverdriveAudioProcessorEditor::~DistoverdriveAudioProcessorEditor()
 void DistoverdriveAudioProcessorEditor::paint (Graphics& g)
 {
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-    mMainPanel->paint(g);
 }
 
 void DistoverdriveAudioProcessorEditor::resized()
@@ -55,4 +54,6 @@ void DistoverdriveAudioProcessorEditor::resized()
 //        control->setBounds(xPos, mComponentBounds.getY(), sliderBounds.getWidth(), sliderBounds.getHeight());
 //        xPos += (sliderBounds.getX() + sliderBounds.getWidth() + 10);
 //    }
+    auto area = getLocalBounds();
+    mMainPanel->setBounds (area.removeFromTop (mMainPanel->getComponentHeight()));
 }

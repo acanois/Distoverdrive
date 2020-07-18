@@ -14,12 +14,17 @@
 
 #include "PluginProcessor.h"
 
-class MainPanel : public Component
+class MainPanel : public Component,
+                  Slider::Listener
 {
 public:
     MainPanel(DistoverdriveAudioProcessor& processor);
     
+    void resized() override;
     void paint(Graphics& g) override;
+    void sliderValueChanged (Slider* slider) override;
+    
+    int getComponentHeight() { return mComponentBounds.getHeight(); }
     
 private:
     OwnedArray<Slider> mDistControls;

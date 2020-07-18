@@ -29,11 +29,21 @@ MainPanel::MainPanel(DistoverdriveAudioProcessor& processor)
     mComponentBounds.setBounds(0, 0, (sliderBounds.getWidth() * 4), (sliderBounds.getHeight()));
 }
 
-void MainPanel::paint(Graphics &g)
+void MainPanel::resized()
 {
     int xPos = mComponentBounds.getX();
     for (Slider* control : mDistControls) {
         control->setBounds(xPos, mComponentBounds.getY(), sliderBounds.getWidth(), sliderBounds.getHeight());
         xPos += (sliderBounds.getX() + sliderBounds.getWidth() + 10);
     }
+}
+
+void MainPanel::paint(Graphics &g)
+{
+    g.fillAll (Colours::black);
+}
+
+void MainPanel::sliderValueChanged (Slider* slider)
+{
+    
 }
