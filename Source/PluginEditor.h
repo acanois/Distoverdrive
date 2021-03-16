@@ -39,7 +39,6 @@ private:
     
     DistoverdriveAudioProcessor& processor;
     
-    std::unique_ptr<MainPanel> mMainPanel;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DistoverdriveAudioProcessorEditor)
 };

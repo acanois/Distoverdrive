@@ -12,7 +12,7 @@
 
 MainPanel::MainPanel(DistoverdriveAudioProcessor& processor)
 {
-    std::array<std::string, 2> controlNames = { "input", "output" };
+    std::array<std::string, 2> controlNames = { "robots", "output" };
     
     for (auto name : controlNames)
     {
